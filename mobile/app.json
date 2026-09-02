@@ -1,0 +1,1 @@
+{"expo":{"name":"SHOKON","slug":"shokon","version":"1.0.0","orientation":"portrait","scheme":"shokon","userInterfaceStyle":"automatic","newArchEnabled":true,"plugins":["expo-router"],"android":{"package":"com.shokon.app"},"ios":{"bundleIdentifier":"com.shokon.app"},"extra":{"router":{"origin":false}}}}
