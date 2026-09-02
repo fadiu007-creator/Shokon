@@ -20,5 +20,7 @@ jobs:
           cache: npm
           cache-dependency-path: mobile/package.json
       - run: npm install --no-audit --no-fund
+      - run: npx expo install --check
+      - run: npx expo-doctor
       - run: npm run typecheck
       - run: npx expo export --platform web
