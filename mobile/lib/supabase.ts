@@ -1,14 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 
-const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const key = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+// These are the public Supabase client values protected by RLS.
+// Environment variables can still override them for other deployments.
+const url = process.env.EXPO_PUBLIC_SUPABASE_URL ?? 'https://xnpfgsjgfmryurcpyclt.supabase.co';
+const key = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? 'sb_publishable_SLz0RAn6oHfTxYs3KJWBRw_cI3oEqzH';
 
-export const supabase = url && key ? createClient(url, key, {
-  auth: { storage: AsyncStorage, autoRefreshToken: true, persistSession: true, detectSessionInUrl: false },
-}) : null;
+export const supabase = createClient(url, key, {
+  auth: {
+    storage: AsyncStorage,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
+});
 
 export function requireSupabase() {
-  if (!supabase) throw new Error('Supabase is not configured. Add EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY.');
   return supabase;
 }
