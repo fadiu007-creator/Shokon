@@ -34,7 +34,7 @@ export default function App() {
 
   const filtered = useMemo(() => providers.filter(p => {
     const hay = `${p.name} ${p.city} ${p.role} ${p.bio || ''}`.toLowerCase();
-    return (role === 'All' || p.role === role) && (!city || p.city.toLowerCase().includes(city.toLowerCase())) && (!search || hay.includes(search.toLowerCase()));
+    return (role === 'All' || p.role === role) && (!city || (p.city || '').toLowerCase().includes(city.toLowerCase())) && (!search || hay.includes(search.toLowerCase()));
   }), [providers, role, city, search]);
 
   async function signIn() {
@@ -70,7 +70,8 @@ export default function App() {
   async function loadMessages() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { setScreen('auth'); return; }
-    const { data, error: e } = await supabase.from('shokon_messages').select('id,booking_id,sender_id,body,created_at').or(`sender_id.eq.${user.id}`).order('created_at', { ascending: true }).limit(50);
+    // RLS already limits this table to participants; fetch both sent and received messages.
+    const { data, error: e } = await supabase.from('shokon_messages').select('id,booking_id,sender_id,body,created_at').order('created_at', { ascending: true }).limit(100);
     if (e) setAuthMessage(e.message); else setMessages(data || []);
     setScreen('messages');
   }
