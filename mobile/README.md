@@ -1,13 +1,15 @@
 # SHOKON Android app
 
-Expo/React Native MVP for SHOKON. It uses the same Supabase backend as the web app.
+Expo / React Native MVP for SHOKON, currently on **Expo SDK 57**. The mobile app lives in `mobile/` and is intentionally separate from the Next.js web app at the repository root.
 
 ## Run in Expo Go
 
-1. Install Node.js 20+ on a computer and install Expo Go on Android.
-2. From `Shokon/mobile`, create `.env` from `.env.example` and set the two Expo public Supabase variables.
+1. Install Node.js 22+ on a computer and install Expo Go on Android.
+2. From `Shokon/mobile`, install dependencies with `npm install --legacy-peer-deps`.
 3. Run `npx expo start --tunnel`.
-4. Scan the QR code in Expo Go. The phone and computer do not need to be on the same Wi-Fi when using the tunnel.
+4. Scan the QR code in Expo Go.
+
+The mobile app currently uses the SHOKON Supabase backend for provider data, authentication, bookings and messaging. `.env.example` documents the variables for overriding the public client configuration.
 
 ## MVP flows
 
@@ -19,4 +21,4 @@ Expo/React Native MVP for SHOKON. It uses the same Supabase backend as the web a
 
 ## Checks
 
-Run `npm install` then `npm run typecheck` before opening the app in Expo Go.
+The repository CI runs dependency compatibility checks, Expo Doctor, TypeScript, and a web export for the mobile project.
