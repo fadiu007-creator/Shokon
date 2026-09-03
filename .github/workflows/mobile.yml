@@ -19,7 +19,7 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: mobile/package.json
-      - run: npm install --no-audit --no-fund
+      - run: npm install --legacy-peer-deps --no-audit --no-fund
       - run: npx expo install --check
       - run: npx expo-doctor
       - run: npm run typecheck
